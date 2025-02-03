@@ -7,14 +7,14 @@ class Pokemon(models.Model):
     title_ru = models.CharField(max_length=200, verbose_name='Имя на Русском')
     title_en = models.CharField(max_length=200, blank=True, verbose_name='Имя на Английском')
     title_jp = models.CharField(max_length=200, blank=True, verbose_name='Имя на Японском')
-    image = models.ImageField(null=True, verbose_name='Изображение')
-    description = models.TextField(null=True, blank=True, verbose_name='Описание')
+    image = models.ImageField(upload_to='images/', default='images/default.png', verbose_name='Изображение')
+    description = models.TextField(blank=True, verbose_name='Описание', default='Нет описания')
     previous_evolution = models.ForeignKey('self',
                                        on_delete=models.SET_NULL,
                                        null=True, 
                                        blank=True,
                                        related_name='next_evolution',
-                                       verbose_name='Из кого эволюционирует'
+                                       verbose_name='Из кого эволюционирует',
                                        )
 
 
@@ -24,10 +24,10 @@ class Pokemon(models.Model):
 
 class PokemonEntity(models.Model):
     name = models.ForeignKey(Pokemon, on_delete=models.CASCADE, default=1, verbose_name='Имя')
-    lat = models.FloatField(null=True, blank=True, verbose_name='Широта')
-    lon = models.FloatField(null=True, blank=True, verbose_name='Долгота')
-    appeared_at = models.DateTimeField(null=True, blank=True, verbose_name='Время появления')
-    disappeared_at = models.DateTimeField(null=True, blank=True, verbose_name='Время исчезновения')
+    lat = models.FloatField(verbose_name='Широта', null=False)
+    lon = models.FloatField(verbose_name='Долгота', null=False)
+    appeared_at = models.DateTimeField(verbose_name='Время появления', null=False)
+    disappeared_at = models.DateTimeField(verbose_name='Время исчезновения', null=False)
     level = models.IntegerField(null=True, blank=True, verbose_name='Уровень')
     health = models.IntegerField(null=True, blank=True, verbose_name='Здоровье')
     strength = models.IntegerField(null=True, blank=True, verbose_name='Сила')
