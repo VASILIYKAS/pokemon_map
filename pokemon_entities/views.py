@@ -64,7 +64,7 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
     pokemons_entity = pokemon.pokemonentity_set.all()
-
+    next_evolution = pokemon.next_evolution.first()
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity in pokemons_entity:
@@ -79,4 +79,5 @@ def show_pokemon(request, pokemon_id):
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(),
         'pokemon': pokemon,
+        'next_evolution': next_evolution,
     })
