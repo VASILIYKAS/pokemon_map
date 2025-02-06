@@ -23,7 +23,7 @@ class Pokemon(models.Model):
 
 
 class PokemonEntity(models.Model):
-    name = models.ForeignKey(Pokemon, on_delete=models.CASCADE, default=1, verbose_name='Имя')
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, default=1, verbose_name='Имя')
     lat = models.FloatField(verbose_name='Широта', null=False)
     lon = models.FloatField(verbose_name='Долгота', null=False)
     appeared_at = models.DateTimeField(verbose_name='Время появления', null=False)
@@ -35,4 +35,4 @@ class PokemonEntity(models.Model):
     stamina = models.IntegerField(null=True, blank=True, verbose_name='Выносливость')
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.pokemon}'
