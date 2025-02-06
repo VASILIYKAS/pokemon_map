@@ -63,7 +63,7 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
-    pokemons_entity = pokemon.pokemonentity_set.all()
+    pokemons_entity = pokemon.pokemon_entities.all()
     next_evolution = pokemon.next_evolution.first()
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
